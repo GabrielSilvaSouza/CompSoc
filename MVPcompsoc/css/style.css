@@ -1,0 +1,44 @@
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    font-size: 14px;
+    
+  }
+  body {
+    font-family: Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing: antialiased;
+
+  }
+  
+  header {
+    display: flex;
+    padding: 10px;
+    background-color: darkgreen;
+  }
+  header h1 {
+    font-weight:200;
+    letter-spacing:2px;
+    color:black;
+  }
+  h1 {
+    font-size: calc(1.325rem + 1.5vh);
+  }
+  #login-container {
+    width:346px;
+    margin: 20px auto;
+    padding:20px;
+    box-shadow: 0 1rem 3rem rgba(0,0,0,.175)!important;
+    
+  }
+#btn-submit-login,#btn-signup-login {
+    width: 100%;
+}
+footer {
+    height: 200px;
+}
+
+main {
+    flex-grow: 1;
+    height: 500px;
+}
