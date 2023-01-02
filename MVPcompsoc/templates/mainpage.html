@@ -7,7 +7,12 @@
     <title>ST preve</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />    
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  
+  
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -47,86 +52,21 @@
             </tr>
         </thead>
         <tbody>
+
+            {% for i in range(0, 5)%}
             <tr class="table-primary">
-                <td>1</td>
+                <td>{{data[i][0]}}</td>
                 <td>userCafofo</td>
                 <td>04/07/2021</td>
-                <td>Waiting for statement</td>
-                <td>Necessita de Fotógrafo para a Loja</td>
-                <td> 3h </td>
-            <td><button type="submit" class="btn btn-outline-secondary" id="">Cadastre-se </button></td>
+                <td>{{data[i][5]}}</td>
+                <td>{{data[i][2]}}</td>
+                <td> {{data[i][3]}} </td>
+            <td><button type="submit" class="btn btn-outline-secondary" id=""> Candidatar-se </button></td>
                 <td></td>
-            </tr>
-            <tr class="table-secondary">
-                <td>2</td>
-                <td>userCultural</td>
-                <td>02/07/2021</td>
-                <td>Cancelled</td>
-                <td></td>
-                <td></td>
-                <td>Cancelado (sem botão)</td>
-                <td></td>
-            </tr>
-            <tr class="table-success">
-                <td>3</td>
-                <td>userReformas</td>
-                <td>01/07/2021</td>
-                <td>Paid</td>
-                <td></td>
-                <td></td>
-                <td> Done (sem botão)</td>
-                <td></td>
-            </tr>
-            <tr class="table-info">
-                <td>4</td>
-                <td>userD</td>
-                <td>05/07/2021</td>
-                <td>Change plan</td>
-                <td></td>
-                <td></td>
-                <td><button type="submit" class="btn btn-outline-secondary" id="">Cadastre-se </button></td>
-                <td></td>
-            </tr>
-            <tr class="table-warning">
-                <td>5</td>
-                <td>userLimpeza</td>
-                <td>03/07/2021</td>
-                <td>Pending</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr class="table-danger">
-                <td>6</td>
-                <td>userD</td>
-                <td>06/07/2021</td>
-                <td>Due</td>
-                <td></td>
-                <td></td>
-                <td> Vencida (sem botão)</td>
-                <td></td>
-            </tr>
-            <tr class="table-light">
-                <td>7</td>
-                <td>Car Service</td>
-                <td>08/07/2021</td>
-                <td>Call in to confirm</td>
-                <td></td>
-                <td></td>
-                <td><button type="submit" class="btn btn-outline-secondary" id="">Cadastre-se </button></td>
-                <td></td>
-            </tr>
-            <tr class="table-dark">
-                <td>8</td>
-                <td>Gas</td>
-                <td>06/07/2021</td>
-                <td>Payment failed</td>
-                <td></td>
-                <td></td>
-                <td>Falha (sem botão)</td>
-                <td></td>
-            </tr>
+            </tr>   
+            {% endfor %}    
+            
+ 
         </tbody>
     </table>
 </div>

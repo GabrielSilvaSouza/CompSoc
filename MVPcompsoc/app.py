@@ -1,7 +1,9 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, jsonify, json
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
 import re
+import csv
+
  
  
 app = Flask(__name__)
@@ -18,12 +20,32 @@ mysql = MySQL(app)
  
 @app.route('/')
 
-#######################################################
-
-@app.route('/mainpage' , methods =['GET', 'POST'])
+@app.route('/mainpage' )
 def mainpage():
     msg = ''
-    return render_template('mainpage.html', msg=msg)
+
+
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT idpost, title, description, hour_currency, service_tag, status FROM post')
+    u = cursor.fetchall()
+
+    data = []
+    for row in u:
+        data.append([        row['idpost'],
+            row['title'],
+            row['description'],
+            row['hour_currency'],
+            row['service_tag'],
+            row['status'] ]
+                )
+    print(data)
+
+
+    return render_template('mainpage.html', data=data)
+
+#######################################################
+
+
 
 @app.route('/profile' , methods =['GET', 'POST'])
 def profile():
@@ -126,6 +148,9 @@ def addpost():
 
 
 
-    
+
+
+ 
+
 
 
