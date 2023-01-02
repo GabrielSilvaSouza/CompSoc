@@ -17,6 +17,9 @@ app.config['MYSQL_DB'] = 'dbsystem'
 mysql = MySQL(app)
  
 @app.route('/')
+
+#######################################################
+
 @app.route('/mainpage' , methods =['GET', 'POST'])
 def mainpage():
     msg = ''
@@ -26,6 +29,13 @@ def mainpage():
 def profile():
     msg = ''
     return render_template('profile.html', msg=msg)
+
+@app.route('/addpost' , methods =['GET', 'POST'])
+def addpost():
+    msg = ''
+    return render_template('add_post.html', msg=msg)
+
+#######################################################
 
 @app.route('/login', methods =['GET', 'POST'])
 def login():
