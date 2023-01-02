@@ -111,16 +111,20 @@ def addpost():
         description = request.form['description']
         hour_currency = request.form['hour_currency']
         service_tag = request.form['service_tag']
+        status = request.form['status']
 
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
 
-        cursor.execute('INSERT INTO post (title, description,  service_tag) VALUES (%s, %s,  %s)', (title, description, service_tag))
+        cursor.execute('INSERT INTO post (title, description,  service_tag, hour_currency, status) VALUES (%s, %s,  %s, %s, %s)', (title, description, service_tag, hour_currency
+        , status))
         mysql.connection.commit()
         msg = "Post publicado"
-        return render_template("login.html", msg=msg)
+        return render_template("mainpage.html", msg=msg)
 
     else:
         return render_template('add_post.html', msg=msg)
+
+
 
     
 
