@@ -30,12 +30,6 @@ def profile():
     msg = ''
     return render_template('profile.html', msg=msg)
 
-@app.route('/addpost' , methods =['GET', 'POST'])
-def addpost():
-    msg = ''
-    return render_template('add_post.html', msg=msg)
-
-#######################################################
 
 @app.route('/login', methods =['GET', 'POST'])
 def login():
@@ -103,5 +97,31 @@ def register():
         msg = 'Formulário não preenchido adequadamente !'
     return render_template('register.html', msg = msg)
 
+
+
+
+@app.route('/addpost' , methods =['GET', 'POST'])
+def addpost():
+    msg = ''
+    if not session.get('UserID'):
+        msg = "Você não está logado !"
+        return render_template('login.html', msg=msg)
+    elif request.method == 'POST' and session.get('UserID'):
+        title = request.form['title']
+        description = request.form['description']
+        hour_currency = request.form['hour_currency']
+        service_tag = request.form['service_tag']
+
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+
+        cursor.execute('INSERT INTO post (title, description,  service_tag) VALUES (%s, %s,  %s)', (title, description, service_tag))
+        mysql.connection.commit()
+        msg = "Post publicado"
+        return render_template("login.html", msg=msg)
+
+    else:
+        return render_template('add_post.html', msg=msg)
+
+    
 
 
