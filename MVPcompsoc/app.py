@@ -27,11 +27,12 @@ def mainpage():
 
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute('SELECT idpost, title, description, hour_currency, service_tag, status FROM post')
+    
     u = cursor.fetchall()
 
     data = []
     for row in u:
-        data.append([        row['idpost'],
+        data.append([    row['idpost'],
             row['title'],
             row['description'],
             row['hour_currency'],
