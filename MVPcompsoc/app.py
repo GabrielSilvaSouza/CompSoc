@@ -148,6 +148,17 @@ def addpost():
         return render_template('add_post.html', msg=msg)
 
 
+@app.route('/exchange', methods = ['POST'])
+def exchange():
+    if not session.get('UserID'):
+        msg = 'Você deve estar logado'
+        return render_template('login.html', msg=msg)
+    elif request.method == 'POST':
+        
+
+        
+    else:
+        return render_template('exchange.html')
 
 
 
