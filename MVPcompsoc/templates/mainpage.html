@@ -52,7 +52,7 @@
             </tr>
         </thead>
         <tbody>
-
+            <form action="{{ url_for('exchange') }}" method="post">
             {% for i in range(0, 5)%}
             <tr class="table-primary">
                 <td>{{data[i][0]}}</td>
@@ -64,7 +64,8 @@
             <td><button type="submit" class="btn btn-outline-secondary" id=""> Candidatar-se </button></td>
                 <td></td>
             </tr>   
-            {% endfor %}    
+            {% endfor %} 
+            </form>   
             
  
         </tbody>
