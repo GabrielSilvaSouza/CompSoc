@@ -8,20 +8,20 @@ import csv
  
 app = Flask(__name__)
  
- 
+#settando as config do BD
 app.secret_key = 'your secret key'
  
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'dbpv'
+app.config['MYSQL_PASSWORD'] = 'dbpv'#senha do bd
 app.config['MYSQL_DB'] = 'dbsystem'
  
 mysql = MySQL(app)
  
-@app.route('/')
+@app.route('/') #definindo a rota principal(ao acionar , renderizará o mainpage )
 
-@app.route('/mainpage' )
-def mainpage():
+@app.route('/mainpage' ) #defindo a rota para main page, assegurando as POST e GET
+def mainpage():#toda funcao render , carregará a página
     msg = ''
 
 
@@ -31,7 +31,7 @@ def mainpage():
     u = cursor.fetchall()
 
     data = []
-    for row in u:
+    for row in u:#carrega todos os posts para a mainpage mediante a anexacao de uma lista
         data.append([    row['idpost'],
             row['title'],
             row['description'],
@@ -57,14 +57,14 @@ def profile():
 @app.route('/login', methods =['GET', 'POST'])
 def login():
     msg = ''
-    if request.method == 'POST' and 'email' in request.form and 'passwort' in request.form:
-        email = request.form['email']
+    if request.method == 'POST' and 'email' in request.form and 'passwort' in request.form: #os dados sao carregados das paginas de submissao com o request.form
+        email = request.form['email']# associando uma variável aos dados ssubmetidos
         passwort = request.form['passwort']
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM Client_user WHERE email = % s AND passwort = % s', (email, passwort, ))
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)#criando um cursor/conexao com o Banco de Dadso
+        cursor.execute('SELECT * FROM Client_user WHERE email = % s AND passwort = % s', (email, passwort, ))#SQL query para encontrar o usuario
         account = cursor.fetchone()
         if account:
-            session['loggedin'] = True
+            session['loggedin'] = True# com os dados do BD , carrega-se as sessões para o aproveitamento no HTML
             session['UserID'] = account['UserID']
             session['email'] = account['email']
             session['Fullname'] = account['Fullname']
@@ -81,13 +81,13 @@ def login():
  
 @app.route('/logout')
 
-def logout():
+def logout():#desloga colapsando as sessões
     session.pop('loggedin', None)
     session.pop('UserID', None)
     session.pop('email', None)
     return redirect(url_for('login'))
  
-@app.route('/register', methods =['GET', 'POST'])
+@app.route('/register', methods =['GET', 'POST']) #register seguirá a mesma linha de login, excetuando-se a QUery
 def register():
     msg = ''
     if request.method == 'POST' and 'passwort' in request.form and 'email' in request.form :
@@ -102,9 +102,9 @@ def register():
         address = request.form['address']
 
 
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor) # cursos segue igual ao de login
         cursor.execute('SELECT * FROM Client_user WHERE email = % s', (email, ))
-        account = cursor.fetchone()
+        account = cursor.fetchone() # verifica se não a contas duplicadas
         if account:
             msg = 'Já existe!'
         elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
@@ -113,7 +113,7 @@ def register():
             msg = 'Preencha !'
         else:
             cursor.execute('INSERT INTO Client_user (Fullname, cpf, Age, email, passwort, bankclient, services, skills,address ) VALUES (% s, % s, % s, % s, %s, % s , % s , % s, %s  )', (Fullname, cpf, Age, email, passwort, bankclient, services, skills,address  ))
-            mysql.connection.commit()
+            mysql.connection.commit() #SEMPRE que alterar o BD, deve-se comitar a ação
             msg = 'Você foi registrado!'
             return render_template('login.html', msg = msg)
     elif request.method == 'POST':
@@ -124,9 +124,9 @@ def register():
 
 
 @app.route('/addpost' , methods =['GET', 'POST'])
-def addpost():
+def addpost():#função para adcionar posteres
     msg = ''
-    if not session.get('UserID'):
+    if not session.get('UserID'):#verifica se há alguma sessão de user aberta(login)
         msg = "Você não está logado !"
         return render_template('login.html', msg=msg)
     elif request.method == 'POST' and session.get('UserID'):
