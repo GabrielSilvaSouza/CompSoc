@@ -1,6 +1,16 @@
 body{
     background: -webkit-linear-gradient(left, #a9c179, #00902e);
 }
+header {
+    display: flex;
+    padding: 10px;
+    background-color: darkgreen;
+  }
+header h1 {
+    font-weight: 200;
+    letter-spacing:2px;
+    color:black;
+}
 .emp-profile{
     padding: 3%;
     margin-top: 3%;
